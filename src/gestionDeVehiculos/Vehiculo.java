@@ -9,7 +9,6 @@ package gestionDeVehiculos;
  */
 public class Vehiculo {
 	
-
 	private String matricula;
 	private String numBastidor;
 	private float precio;
