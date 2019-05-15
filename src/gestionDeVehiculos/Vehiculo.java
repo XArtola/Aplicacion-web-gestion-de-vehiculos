@@ -14,6 +14,7 @@ public class Vehiculo {
 	private float precio;
 	private String color;
 	private String serie;
+	private int numAsientos;
 	public String getMatricula() {
 		return matricula;
 	}
@@ -43,6 +44,12 @@ public class Vehiculo {
 	}
 	public void setSerie(String serie) {
 		this.serie = serie;
+	}
+	public int getNumAsientos() {
+		return numAsientos;
+	}
+	public void setNumAsientos(int numAsientos) {
+		this.numAsientos = numAsientos;
 	}
 	
 	
