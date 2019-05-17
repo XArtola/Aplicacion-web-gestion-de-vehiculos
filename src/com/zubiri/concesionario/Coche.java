@@ -1,16 +1,15 @@
-package gestionDeVehiculos;
+package com.zubiri.concesionario;
 
 public class Coche extends Vehiculo{
 	
 	private int numPuertas;
 	private float capacidadMaletero;
-	
-	public Coche(int numPuertas, float capMaletero) {
+	/*public Coche(int numPuertas, float capMaletero) {
 		super();
 		setCapacidadMaletero(capMaletero);
 		setNumPuertas(numPuertas);
 		
-	}
+	}*/
 	/**
 	 * @return the numPuertas
 	 */

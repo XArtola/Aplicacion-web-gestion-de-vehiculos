@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gestionDeVehiculos;
+package com.zubiri.concesionario;
 
 /**
  * @author ik013043z1
@@ -14,6 +14,7 @@ public class Vehiculo {
 	private float precio;
 	private String color;
 	private String serie;
+	private String estado;
 	private int numAsientos;
 	public String getMatricula() {
 		return matricula;
@@ -51,8 +52,21 @@ public class Vehiculo {
 	public void setNumAsientos(int numAsientos) {
 		this.numAsientos = numAsientos;
 	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) throws Exception {
+		if (checkEstado(estado))
+			this.estado = estado;
+		else
+			throw new Exception("Estado no válido");
+	}
 	
-	
+	public boolean checkEstado(String estado) {
+		if(estado.equals("vendido") || estado.equals("disponible"))
+			return true;
+		return false;
+	}
 	
 	
 }
