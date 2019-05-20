@@ -13,5 +13,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/ik013043z1/eclipse-workspace/Aplicacion-web-gestion-de-vehiculos/WebContent/WEB-INF/lib/mysql-connector-java-8.0.11.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
