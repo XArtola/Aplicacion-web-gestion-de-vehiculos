@@ -29,7 +29,10 @@ public class ConexionDB {
 				+ "&password=" + password + "&serverTimezone=UTC&useSSL=false");
 		setStatement(conn.createStatement());
 	}
-
+	public void close() throws SQLException {
+		conn.close();
+	}
+	
 	public ResultSet getVehiculos() throws SQLException {
 		return st.executeQuery("select * from vehiculos");
 	}

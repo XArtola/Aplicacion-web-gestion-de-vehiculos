@@ -16,6 +16,8 @@ public class Vehiculo {
 	private String serie;
 	private String estado;
 	private int numAsientos;
+	private String tipo;
+	
 	public String getMatricula() {
 		return matricula;
 	}
@@ -55,6 +57,14 @@ public class Vehiculo {
 	public String getEstado() {
 		return estado;
 	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	
 	public void setEstado(String estado) throws Exception {
 		if (checkEstado(estado))
 			this.estado = estado;
@@ -67,6 +77,7 @@ public class Vehiculo {
 			return true;
 		return false;
 	}
+	
 	
 	
 }
