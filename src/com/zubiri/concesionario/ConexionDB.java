@@ -34,7 +34,8 @@ public class ConexionDB {
 	}
 	
 	public ResultSet getVehiculos() throws SQLException {
-		return st.executeQuery("select * from vehiculos");
+		cst = conn.prepareCall("call getVehiculos()");
+		return cst.executeQuery();
 	}
 
 	public ResultSet getCoches() throws SQLException {
@@ -43,7 +44,8 @@ public class ConexionDB {
 	}
 
 	public ResultSet getCamiones() throws SQLException {
-		return cst.executeQuery("call getCamiones()");
+		cst = conn.prepareCall("call getCamiones()");
+		return cst.executeQuery();
 	}
 
 	public Coche getCoche(String numBastidor) throws SQLException, Exception {
@@ -54,7 +56,7 @@ public class ConexionDB {
 		coche.setColor(rs.getString("color"));
 		coche.setNumAsientos(rs.getInt("numAsientos"));
 		coche.setPrecio(rs.getFloat("precio"));
-		coche.setSerie(rs.getString("serie"));
+		coche.setSerie(Integer.toString(rs.getInt("numSerie")));
 		coche.setEstado(rs.getString("estado"));
 		coche.setNumPuertas(rs.getInt("numPuertas"));
 		coche.setCapacidadMaletero(rs.getFloat("capacidadMaletero"));
@@ -69,7 +71,7 @@ public class ConexionDB {
 		camion.setColor(rs.getString("color"));
 		camion.setNumAsientos(rs.getInt("numAsientos"));
 		camion.setPrecio(rs.getFloat("precio"));
-		camion.setSerie(rs.getString("serie"));
+		camion.setSerie(Integer.toString(rs.getInt("numSerie")));
 		camion.setEstado(rs.getString("estado"));
 		camion.setCarga(rs.getFloat("carga"));
 		camion.setTipoMercancia(rs.getString("tipoMercancia").charAt(0));
@@ -77,16 +79,18 @@ public class ConexionDB {
 	}
 
 	public void insertarCoche(Coche coche) throws SQLException {
-		cst.executeUpdate("call insertarCoche('" + coche.getMatricula() + "','" + coche.getNumBastidor() + "','"
-				+ coche.getColor() + "'," + coche.getNumAsientos() + "," + coche.getPrecio() + ",'" + coche.getSerie()
-				+ "','" + coche.getEstado() + "'," + coche.getNumPuertas() + "," + coche.getCapacidadMaletero() + ");");
+		cst = conn.prepareCall("call insertarCoche('" + coche.getMatricula().toUpperCase() + "','" + coche.getNumBastidor() + "','"
+				+ coche.getColor() + "'," + coche.getNumAsientos() + "," + coche.getPrecio() + "," + Integer.parseInt(coche.getSerie())
+				+ ",'disponible','coche'," + coche.getNumPuertas() + "," + coche.getCapacidadMaletero() + ");");
+		cst.execute();
 	}
 
 	public void insertarCamion(Camion camion) throws SQLException {
-		cst.executeUpdate("call insertarCamion(" + camion.getMatricula() + "','" + camion.getNumBastidor() + "','"
+		cst = conn.prepareCall("call insertarCamion(" + camion.getMatricula().toUpperCase() + "','" + camion.getNumBastidor() + "','"
 				+ camion.getColor() + "'," + camion.getNumAsientos() + "," + camion.getPrecio() + ",'"
 				+ camion.getSerie() + "','" + camion.getEstado() + "'," + camion.getCarga() + ",'"
 				+ camion.getTipoMercancia() + "');");
+		cst.execute();
 	}
 
 	public void modificarCoche(String numBastidor, Coche coche) throws SQLException {
