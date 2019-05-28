@@ -13,7 +13,7 @@ public class Vehiculo {
 	private String numBastidor;
 	private float precio;
 	private String color;
-	private String serie;
+	private Serie serie;
 	private String estado;
 	private int numAsientos;
 	private String tipo;
@@ -42,10 +42,10 @@ public class Vehiculo {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getSerie() {
+	public Serie getSerie() {
 		return serie;
 	}
-	public void setSerie(String serie) {
+	public void setSerie(Serie serie) {
 		this.serie = serie;
 	}
 	public int getNumAsientos() {

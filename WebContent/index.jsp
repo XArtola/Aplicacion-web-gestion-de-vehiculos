@@ -2,35 +2,34 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="com.zubiri.concesionario.*"%>
-<!--<%@ page import="com.mysql.cj.jdbc.Driver"%>-->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Concesionarios Manoli &copy</title>
-<style>
-<%@ include file="/WEB-INF/css/estilos.css"%>
-</style>
-<link href="https://fonts.googleapis.com/css?family=Cinzel|Julius+Sans+One|Noto+Sans|Raleway&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+	<meta charset="ISO-8859-1">
+	<title>MariCARmen &copy</title>
+	<link rel="stylesheet" type="text/css" href="./css/estilos.css">
+	<link href="https://fonts.googleapis.com/css?family=Cinzel|Julius+Sans+One|Noto+Sans|Raleway&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+	<script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./js/script.js"></script>
 </head>
 <body>
 	<header>
-		<h1>Concesionarios Manoli <sup>&copy</sup></h1>
+		<h1>MariCARmen <sup>&copy</sup></h1>
 	</header>
 	<nav>
 		<ul>
-			<%if(request.getParameter("formato").equals("lista")){ %>
-				<li><a href="index.jsp?formato=modulo&seleccion=<%=request.getParameter("seleccion") %>"><i class="material-icons">view_module</i></a></li>
-			<%}else{%>
-				<li><a href="index.jsp?formato=lista&seleccion=<%=request.getParameter("seleccion") %>"><i class="material-icons">view_list</i></a></li>
-				<%
-			}%>
 			<li><a href="index.jsp?seleccion=vehiculos&formato=<%=request.getParameter("formato") %>">Todos los vehículos</a></li>
 			<li><a href="index.jsp?seleccion=coches&formato=<%=request.getParameter("formato") %>">Coches</a></li>
 			<li><a href="index.jsp?seleccion=camiones&formato=<%=request.getParameter("formato") %>">Camiones</a></li>
-			<li style="float: right;"><a href="insertar.jsp?seleccion=<%=request.getParameter("seleccion")%>">Añadir vehículo</a></li>
+			<li style="float: right; margin-right:20px;"><a href="insertar.jsp?seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">add</i></a></li>
+			<%if(request.getParameter("formato").equals("lista")){ %>
+				<li style="float:right;"><a href="index.jsp?formato=modulo&seleccion=<%=request.getParameter("seleccion") %>"><i class="material-icons">view_module</i></a></li>
+			<%}else{%>
+				<li style="float:right;"><a href="index.jsp?formato=lista&seleccion=<%=request.getParameter("seleccion") %>"><i class="material-icons">view_list</i></a></li>
+				<%
+			}%>
 		</ul>
 	</nav>
 	
@@ -46,8 +45,10 @@
 				rs = conn.getCamiones();
 	%>
 	<section>
-		<table>
+	<article>
+		<table class="lista">
 			<tr>
+				<th></th>
 				<th>Matrícula</th>
 				<th>Nº Bastidor</th>
 				<th>Color</th>
@@ -60,20 +61,23 @@
 			<%
 				while (rs.next()) {
 			%>
-			<tr>
+			<tr ondblclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
+				<td><img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/></td>
 				<td><%=rs.getString("matricula")%></td>
 				<td><%=rs.getString("numBastidor")%></td>
-				<td><%=rs.getString("color")%></td>
+				<td> <div class="color" style="background-color:<%=rs.getString("color")%>;"></div></td>
 				<td><%=rs.getInt("numAsientos")%></td>
 				<td><%=rs.getFloat("precio")%></td>
 				<td><%=rs.getInt("numSerie")%>
 				<td><%=rs.getFloat("carga")%></td>
 				<td><%=rs.getString("tipoMercancia").charAt(0) %></td>
+				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></td></a>
 			</tr>
 			<%
 				}
 			%>
 		</table>
+		</article>
 		</section>
 		<%
 			break;
@@ -81,8 +85,10 @@
 					rs = conn.getCoches();
 		%>
 		<section>
-		<table>
+		<article>
+		<table class="lista">
 			<tr>
+				<th></th>
 				<th>Matrícula</th>
 				<th>Nº Bastidor</th>
 				<th>Color</th>
@@ -95,20 +101,23 @@
 			<%
 				while (rs.next()) {
 			%>
-			<tr>
+			<tr ondblclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
+				<td><img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/></td>
 				<td><%=rs.getString("matricula")%></td>
 				<td><%=rs.getString("numBastidor")%></td>
-				<td><%=rs.getString("color")%></td>
+				<td> <div class="color" style="background-color:<%=rs.getString("color")%>;"></div></td>
 				<td><%=rs.getInt("numAsientos")%></td>
 				<td><%=rs.getFloat("precio")%></td>
 				<td><%=rs.getInt("numSerie")%>
 				<td><%=rs.getInt("numPuertas")%></td>
 				<td><%=rs.getFloat("capacidadMaletero")%></td>
+				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
 			</tr>
 			<%
 				}
 			%>
 		</table>
+		</article>
 		</section>
 		<%
 			break;
@@ -116,8 +125,10 @@
 					rs = conn.getVehiculos();
 					%>
 					<section>
-					<table>
+					<article class="max-content">
+					<table class="lista">
 						<tr>
+							<th></th>
 							<th>Matrícula</th>
 							<th>Nº Bastidor</th>
 							<th>Color</th>
@@ -129,19 +140,28 @@
 						<%
 							while (rs.next()) {
 						%>
-						<tr>
+						<tr onclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
+							<td><img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/></td>
 							<td><%=rs.getString("matricula")%></td>
 							<td><%=rs.getString("numBastidor")%></td>
-							<td><%=rs.getString("color")%></td>
+							<td> <div class="color" style="background-color:<%=rs.getString("color")%>;"></div></td>
 							<td><%=rs.getInt("numAsientos")%></td>
 							<td><%=rs.getFloat("precio")%></td>
 							<td><%=rs.getInt("numSerie")%></td>
-							<td><%=rs.getString("tipo") %></td>
+							<td colspan=2 class="tipo">
+								<%if(rs.getString("tipo").equals("coche")){ %>
+									<i class="material-icons">directions_car</i>
+								<%}else if(rs.getString("tipo").equals("camion")){ %>
+									<i class="material-icons">local_shipping</i>
+								<%} %>
+							</td>
+							<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></td></a>
 						</tr>
 						<%
 							}
 						%>
 					</table>
+					</article>
 					</section>
 					<%
 			break;
@@ -151,54 +171,59 @@
 				case "coches":
 					rs = conn.getCoches();
 					boolean repetir = true;
-					while(repetir){
-						%>
-						<div class="row">
-							<%//for(int i = 0; i < 5; i++){ 
-								if(rs.next()){%>
-								<div class="column">
+					%>
+						<%
+						while(repetir){
+							if(rs.next()){%>
+								<div class="column" onclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
 									<div class="column_content">
 										<div class="matricula"><h2><%=rs.getString("matricula").toUpperCase() %></h2></div>
 										<h3><%=rs.getString("numBastidor")%></h3>
-										<table>
-											<tr><th>Color:</th><td><%=rs.getString("color") %></td></tr>
+										<img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/>
+										<table class="module_table">
+											<tr><th>Color:</th><td> <div class="color" style="background-color:<%=rs.getString("color")%>;"></div></td></tr>
 											<tr><th>Número de Serie:</th><td><%=rs.getString("numSerie") %></td></tr>
 										</table>
+										<div class="tipo">
+											<i class="material-icons">directions_car</i>
+											<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a>
+										</div>
 									</div>
 								</div>
 								<%}else{
 									repetir = false;
 									break;
-								}
-							//} %>
-						</div>
-						<%
-					}
+								}%>
+							<%
+						}
+						%>
+					</div>
+					<%
 					break;
 				case "camiones":
 					rs = conn.getCamiones();
 					repetir = true;
 					while(repetir){
-						%>
-						<div class="row">
-							<%for(int i = 0; i < 5 ; i++){ 
-								if(rs.next()){%>
-								<div class="column">
-									<div class="column_content">
-										<div class="matricula"><h2><%=rs.getString("matricula").toUpperCase() %></h2></div>
-										<h3><%=rs.getString("numBastidor")%></h3>
-										<table>
-											<tr><th>Color:</th><td><%=rs.getString("color") %></td></tr>
-											<tr><th>Número de Serie:</th><td><%=rs.getString("numSerie") %></td></tr>
-										</table>
+						if(rs.next()){%>
+							<div class="column" onclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
+								<div class="column_content">
+									<div class="matricula"><h2><%=rs.getString("matricula").toUpperCase() %></h2></div>
+									<h3><%=rs.getString("numBastidor")%></h3>
+									<img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/>
+									<table class="module_table">
+										<tr><th>Color:</th><td> <div class="color" style="background-color:<%=rs.getString("color")%>;"></div></td></tr>
+										<tr><th>Número de Serie:</th><td><%=rs.getString("numSerie") %></td></tr>
+									</table>
+									<div class="tipo">
+										<i class="material-icons">local_shipping</i>
+										<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a>
 									</div>
 								</div>
-								<%}else{
-									repetir = false;
-									break;
-								}
-							} %>
-						</div>
+							</div>
+							<%}else{
+								repetir = false;
+								break;
+							}%>
 						<%
 					}
 					break;
@@ -206,28 +231,31 @@
 					rs = conn.getVehiculos();
 					repetir = true;
 					while(repetir){
-						%>
-						<div class="row">
-							<%for(int i = 0; i < 5; i++){ 
-								if(rs.next()){%>
-								<div class="column">
-									<div class="column_content">
-										<div class="matricula"><h2><%=rs.getString("matricula").toUpperCase() %></h2></div>
-										<h3><%=rs.getString("numBastidor")%></h3>
-										<table>
-											<tr><th>Color:</th><td><%=rs.getString("color") %></td></tr>
-											<tr><th>Número de Serie:</th><td><%=rs.getString("numSerie") %></td></tr>
-										</table>
-									</div>
+						if(rs.next()){%>
+						<div class="column" onclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
+							<div class="column_content">
+								<div class="matricula"><h2><%=rs.getString("matricula").toUpperCase() %></h2></div>
+								<h3><%=rs.getString("numBastidor")%></h3>
+ 								<img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/>
+								<table class="module_table">
+									<tr><th>Color:</th><td> <div class="color" style="background-color:<%=rs.getString("color")%>;"></div></td></tr>
+									<tr><th>Número de Serie:</th><td><%=rs.getString("numSerie") %></td></tr>
+								</table>
+								<div class="tipo">
+									<%if(rs.getString("tipo").equals("coche")){ %>
+										<i class="material-icons">directions_car</i>
+									<%}else if(rs.getString("tipo").equals("camion")){ %>
+										<i class="material-icons">local_shipping</i>
+									<%} %>
+									<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a>
 								</div>
-								<%}else{
-									repetir = false;
-									break;
-								}
-							} %>
+							</div>
 						</div>
-						<%
-					}
+						<%}else{
+							repetir = false;
+							break;
+						}
+						} 
 					break;
 				}
 			}
@@ -239,6 +267,7 @@
 			}
 		
 	%>
-	</section>
+	</article>
+	
 </body>
 </html>
