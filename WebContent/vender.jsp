@@ -4,10 +4,8 @@
 <%@ page import="com.zubiri.concesionario.*"%>
 <%
 	ConexionDB conn = new ConexionDB();
-	if(request.getParameter("seleccion").equals("coches")){
-		conn.eliminarCoche(request.getParameter("numBastidor"));
-	}else if (request.getParameter("seleccion").equals("camiones")){
-		conn.eliminarCamion(request.getParameter("numBastidor"));
-	}
+	conn.connect();
+	conn.eliminarVehiculo(request.getParameter("numBastidor"));
 	response.sendRedirect("index.jsp?formato="+request.getParameter("formato")+"&seleccion="+request.getParameter("seleccion"));
+	conn.close();
 %>

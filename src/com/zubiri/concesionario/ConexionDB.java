@@ -198,11 +198,11 @@ public class ConexionDB {
 
 	public void modificarCoche(String numBastidor, Coche coche) throws SQLException {
 		st.executeUpdate("update vehiculos set matricula='" + coche.getMatricula() + "', numBastidor='"
-				+ coche.getNumBastidor() + "', color='" + coche.getColor() + "', numAsigentos=" + coche.getNumAsientos()
-				+ ", precio=" + coche.getPrecio() + ", serie='" + coche.getSerie() + "', estado='" + coche.getEstado()
-				+ "where numBastidor='" + numBastidor + ";");
-		st.executeUpdate("update coches set numPuertas='" + coche.getNumPuertas() + 
-						 "', capacidadMaletero='" + coche.getCapacidadMaletero()+"' where numBastidor='"+numBastidor+"'");
+				+ coche.getNumBastidor() + "', color='" + coche.getColor() + "', numAsientos=" + coche.getNumAsientos()
+				+ ", precio=" + coche.getPrecio() + ", serie=" + coche.getSerie().getNumSerie() + 
+				"where numBastidor='" + numBastidor + "';");
+		st.executeUpdate("update coches set numPuertas=" + coche.getNumPuertas() + 
+						 ", capacidadMaletero=" + coche.getCapacidadMaletero()+" where numBastidor='"+numBastidor+"';");
 	}
 	
 	/**
@@ -227,17 +227,8 @@ public class ConexionDB {
 	 * @param numBastidor como clave para saber qué vehículos vamos a "vender"
 	 * @throws SQLException
 	 */
-	public void eliminarCoche(String numBastidor) throws SQLException {
-		getStatement().executeUpdate("delete from vehiculos where numBastidor='"+numBastidor+"';");
-	}
-	
-	/**
-	 * Método para eliminar (vender) el vehículo de nuestra BD
-	 * @param numBastidor como clave para saber qué vehículos vamos a "vender"
-	 * @throws SQLException
-	 */
-	public void eliminarCamion(String numBastidor) throws SQLException {
-		cst = conn.prepareCall("call eliminarCamion('"+numBastidor+"');");
+	public void eliminarVehiculo(String numBastidor) throws SQLException {
+		cst = conn.prepareCall("call eliminarVehiculo('"+numBastidor+"');");
 		cst.execute();
 	}
 	

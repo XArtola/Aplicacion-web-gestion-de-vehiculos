@@ -13,8 +13,11 @@
 <link href="https://fonts.googleapis.com/css?family=Cinzel|Julius+Sans+One|Noto+Sans|Raleway&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+<script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="./js/script.js"></script>
 </head>
 <body>
+
 	<header>
 		<h1>MariCARmen <sup>&copy</sup></h1>
 	</header>
@@ -33,6 +36,22 @@
 		ConexionDB conn = new ConexionDB();
 		try{
 			conn.connect();
+			if (request.getParameter("colorSubmit") != null){
+				if(request.getParameter("seleccion").equals("coche")){
+					Coche c = conn.getCoche(request.getParameter("numBastidor"));
+					out.println("1");
+					c.setColor(request.getParameter("newColor"));
+					out.println("2");
+					conn.modificarCoche(request.getParameter("numBastidor"), c);
+					out.println("3");
+				}else{
+					Camion c = conn.getCamion(request.getParameter("numBastidor"));
+					c.setColor(request.getParameter("newColor"));
+					conn.modificarCamion(request.getParameter("numBastidor"), c);
+				}
+				out.println("4");
+				response.sendRedirect("info.jsp?numBastidor="+request.getParameter("numBastidor")+"&seleccion="+request.getParameter("seleccion"));
+			}
 			switch (request.getParameter("seleccion")){
 			case "coche": 
 				Coche coche = conn.getCoche(request.getParameter("numBastidor"));
@@ -73,11 +92,16 @@
 						<tr>
 							<th>Precio: </th><td><%=coche.getPrecio() %></td>
 						</tr>
+						<tr>
+							<td><a href="vender.jsp?seleccion=coches&formato=lista&numBastidor=<%=coche.getNumBastidor()%>"><i class="material-icons">monetization_on</i></a></td>
+							<td><i class="material-icons" id="colorIcon">color_lens</i></td>
+						</tr>
 					</table>
-					<a href="vender.jsp?seleccion=coches&formato=lista&numBastidor=<%=coche.getNumBastidor()%>">vender</a>
-					<form action="info.jsp" method="post">
-						<input type="color" name="newColor" id="newColor">
-						<input type="submit" name="colorSubmit" id="colorSubmit">
+					<form action="info.jsp" method="post" class="colorOptions">
+						<input type="color" name="newColor">
+						<input type="hidden" name="numBastidor" value="<%=request.getParameter("numBastidor") %>">
+						<input type="hidden" name="seleccion" value="<%=request.getParameter("seleccion") %>">
+						<input type="submit" name="colorSubmit">
 					</form>
 				</article>
 			</section>
@@ -108,7 +132,7 @@
 							<th>Año: </th><td><%=camion.getSerie().getFechaFabricacion() %></td>
 						</tr>
 						<tr>
-							<th>Color:</th><td> <div style="background-color:<%=camion.getColor()%>;width:50px;height:15px; border:.5px solid black;border-spacing:2px;"></div></td>
+							<th>Color:</th><td><div class="color" style="background-color:<%=camion.getColor()%>;float:right;"></div></td>
 						</tr>
 						<tr>
 							<th>Nº de asientos: </th><td><%=camion.getNumAsientos() %></td>
@@ -123,9 +147,12 @@
 							<th>Precio: </th><td><%=camion.getPrecio() %></td>
 						</tr>
 						<tr>
-							<td>
-								<a href="vender.jsp?seleccion=camiones&formato=lista&numBastidor=<%=camion.getNumBastidor()%>">vender</a>
-							</td>
+							<td><a href="vender.jsp?seleccion=camiones&formato=lista&numBastidor=<%=camion.getNumBastidor()%>"><i class="material-icons">monetization_on</i></a></td>
+							<td><i class="material-icons" id="colorIcon">color_lens</i></td>
+						</tr>
+						<tr class="colorOptions">
+							<td><input type="color" name="newColor"></td>
+							<td><input type="submit" name="colorSubmit"></td>
 						</tr>
 					</table>
 				</article>

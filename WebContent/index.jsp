@@ -71,7 +71,7 @@
 				<td><%=rs.getInt("numSerie")%>
 				<td><%=rs.getFloat("carga")%></td>
 				<td><%=rs.getString("tipoMercancia").charAt(0) %></td>
-				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></td></a>
+				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
 			</tr>
 			<%
 				}
@@ -140,7 +140,7 @@
 						<%
 							while (rs.next()) {
 						%>
-						<tr onclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
+						<tr ondblclick="window.location='info.jsp?seleccion=<%=rs.getString("tipo")%>&numBastidor=<%=rs.getString("numBastidor")%>';">
 							<td><img src="./img/<%= conn.getSerie(rs.getInt("numserie")).getMarca()%>.png"/></td>
 							<td><%=rs.getString("matricula")%></td>
 							<td><%=rs.getString("numBastidor")%></td>
