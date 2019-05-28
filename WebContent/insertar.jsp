@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="./js/script.js"></script>
 </head>
 <body>
-<header>
+	<header>
 		<h1>MariCARmen <sup>&copy</sup></h1>
 	</header>
 	<nav>
@@ -30,6 +30,14 @@
 			<li style="float: right; margin-right:20px;"><a href="index.jsp?seleccion=<%=request.getParameter("seleccion")%>&formato=modulo"><i class="material-icons">home</i></a></li>
 		</ul>
 	</nav>
+	<datalist id="presetColors">
+	   <option>#FFFFFF</option>
+	   <option>#000000</option>
+	   <option>#0000FF</option>
+	   <option>#FFFF00</option>
+	   <option>#FF0000</option>
+	   <option>#00FF00</option>
+	</datalist>
 	<section>
 	<article>
 	<%
@@ -183,7 +191,7 @@
 					</tr>
 					<tr>
 						<td>Color</td>
-						<td><input type="color" name="campo_color" required></td>
+						<td><input type="color" name="campo_color" list="presetColors" required></td>
 					</tr>
 					<tr>
 						<td>Número de asientos</td>

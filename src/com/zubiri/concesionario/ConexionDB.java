@@ -196,13 +196,14 @@ public class ConexionDB {
 	 * @throws SQLException
 	 */
 
-	public void modificarCoche(String numBastidor, Coche coche) throws SQLException {
-		st.executeUpdate("update vehiculos set matricula='" + coche.getMatricula() + "', numBastidor='"
-				+ coche.getNumBastidor() + "', color='" + coche.getColor() + "', numAsientos=" + coche.getNumAsientos()
-				+ ", precio=" + coche.getPrecio() + ", serie=" + coche.getSerie().getNumSerie() + 
-				"where numBastidor='" + numBastidor + "';");
+	public void modificarCoche(Coche coche) throws SQLException {
+		st.executeUpdate("update vehiculos set matricula='" + coche.getMatricula() + "', color='" + coche.getColor() 
+				+ "', numAsientos=" + coche.getNumAsientos()
+				+ ", precio=" + coche.getPrecio() 
+				+ ", numserie=" + coche.getSerie().getNumSerie() + 
+				"  where numBastidor='" + coche.getNumBastidor() + "';");
 		st.executeUpdate("update coches set numPuertas=" + coche.getNumPuertas() + 
-						 ", capacidadMaletero=" + coche.getCapacidadMaletero()+" where numBastidor='"+numBastidor+"';");
+						 ", capacidadMaletero=" + coche.getCapacidadMaletero()+" where numBastidor='"+coche.getNumBastidor()+"';");
 	}
 	
 	/**
@@ -213,12 +214,12 @@ public class ConexionDB {
 	 */
 
 	public void modificarCamion(String numBastidor, Camion camion) throws SQLException {
-		st.executeUpdate("update camiones set matricula='" + camion.getMatricula() + "', numBastidor='"
-				+ camion.getNumBastidor() + "', color='" + camion.getColor() + "', numAsigentos="
-				+ camion.getNumAsientos() + ", precio=" + camion.getPrecio() + ", serie='" + camion.getSerie()
-				+ "', estado='" + camion.getEstado() + "', carga=" + camion.getCarga() + ", tipoMercancia='"
-				+ camion.getTipoMercancia() + "' where numBastidor='" + numBastidor + "';");
-		st.executeUpdate("update from camiones set carga='"+ camion.getCarga()+ "', tipoMercancia='" 
+		st.executeUpdate("update vehiculos set matricula='" + camion.getMatricula() + "', color='" + camion.getColor() 
+		+ "', numAsientos=" + camion.getNumAsientos()
+		+ ", precio=" + camion.getPrecio() 
+		+ ", numserie=" + camion.getSerie().getNumSerie() + 
+		"  where numBastidor='" + camion.getNumBastidor() + "';");
+		st.executeUpdate("update from camiones set carga="+ camion.getCarga()+ ", tipoMercancia='" 
 				+ camion.getTipoMercancia() + "' where numBastidor='" + numBastidor + "'");
 	}
 	

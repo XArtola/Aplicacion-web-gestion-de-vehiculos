@@ -39,17 +39,13 @@
 			if (request.getParameter("colorSubmit") != null){
 				if(request.getParameter("seleccion").equals("coche")){
 					Coche c = conn.getCoche(request.getParameter("numBastidor"));
-					out.println("1");
 					c.setColor(request.getParameter("newColor"));
-					out.println("2");
-					conn.modificarCoche(request.getParameter("numBastidor"), c);
-					out.println("3");
+					conn.modificarCoche(c);
 				}else{
 					Camion c = conn.getCamion(request.getParameter("numBastidor"));
 					c.setColor(request.getParameter("newColor"));
 					conn.modificarCamion(request.getParameter("numBastidor"), c);
 				}
-				out.println("4");
 				response.sendRedirect("info.jsp?numBastidor="+request.getParameter("numBastidor")+"&seleccion="+request.getParameter("seleccion"));
 			}
 			switch (request.getParameter("seleccion")){
@@ -93,7 +89,7 @@
 							<th>Precio: </th><td><%=coche.getPrecio() %></td>
 						</tr>
 						<tr>
-							<td><a href="vender.jsp?seleccion=coches&formato=lista&numBastidor=<%=coche.getNumBastidor()%>"><i class="material-icons">monetization_on</i></a></td>
+							<td><a href="vender.jsp?numBastidor=<%=coche.getNumBastidor()%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
 							<td><i class="material-icons" id="colorIcon">color_lens</i></td>
 						</tr>
 					</table>
@@ -147,7 +143,7 @@
 							<th>Precio: </th><td><%=camion.getPrecio() %></td>
 						</tr>
 						<tr>
-							<td><a href="vender.jsp?seleccion=camiones&formato=lista&numBastidor=<%=camion.getNumBastidor()%>"><i class="material-icons">monetization_on</i></a></td>
+							<td><a href="vender.jsp?numBastidor=<%=camion.getNumBastidor()%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
 							<td><i class="material-icons" id="colorIcon">color_lens</i></td>
 						</tr>
 						<tr class="colorOptions">

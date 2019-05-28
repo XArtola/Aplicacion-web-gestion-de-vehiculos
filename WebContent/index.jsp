@@ -23,7 +23,8 @@
 			<li><a href="index.jsp?seleccion=vehiculos&formato=<%=request.getParameter("formato") %>">Todos los vehículos</a></li>
 			<li><a href="index.jsp?seleccion=coches&formato=<%=request.getParameter("formato") %>">Coches</a></li>
 			<li><a href="index.jsp?seleccion=camiones&formato=<%=request.getParameter("formato") %>">Camiones</a></li>
-			<li style="float: right; margin-right:20px;"><a href="insertar.jsp?seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">add</i></a></li>
+			<li style="float: right; margin-right:20px;" id="more"><a><i class="material-icons">more_horiz</i></a></li>
+			<li style="float: right;"><a href="insertar.jsp?seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">add</i></a></li>
 			<%if(request.getParameter("formato").equals("lista")){ %>
 				<li style="float:right;"><a href="index.jsp?formato=modulo&seleccion=<%=request.getParameter("seleccion") %>"><i class="material-icons">view_module</i></a></li>
 			<%}else{%>
@@ -31,8 +32,19 @@
 				<%
 			}%>
 		</ul>
+		<form class="colorPicker">
+			<input type="color" list="presetColors">
+			<datalist id="presetColors">
+			   <option>#FFFFFF</option>
+			   <option>#000000</option>
+			   <option>#0000FF</option>
+			   <option>#FFFF00</option>
+			   <option>#FF0000</option>
+			   <option>#00FF00</option>
+			</datalist>
+			<input type="submit" value="Filtrar por color">
+		</form>
 	</nav>
-	
 	<%
 		ConexionDB conn = new ConexionDB();
 		try {

@@ -1,6 +1,7 @@
 *{
 	margin: 0;
 	padding: 0;
+	user-select:none !important;
 }
 body{
 	height:100%;
@@ -193,6 +194,18 @@ input:valid{
 	border:.5px solid black;
 	border-radius:6px;;
 }
-.colorOptions{
+.colorOptions, .colorPicker{
 	display:none;
+}
+.colorPicker{
+	position:absolute;
+	right:20px;
+	width: 200px;
+	background-color:white;
+	box-shadow:1px 1px 7px gray;
+	padding: 10px 15px;
+}
+.colorPicker input{
+	width:100%;
+	margin: 5px 0;
 }
