@@ -63,21 +63,8 @@ public class Vehiculo {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
-	public void setEstado(String estado) throws Exception {
-		if (checkEstado(estado))
+	public void setEstado(String estado){
 			this.estado = estado;
-		else
-			throw new Exception("Estado no válido");
 	}
-	
-	public boolean checkEstado(String estado) {
-		if(estado.equals("vendido") || estado.equals("disponible"))
-			return true;
-		return false;
-	}
-	
-	
 	
 }

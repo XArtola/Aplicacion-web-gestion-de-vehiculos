@@ -21,6 +21,14 @@
 	<header>
 		<h1>MariCARmen <sup>&copy</sup></h1>
 	</header>
+	<datalist id="presetColors">
+	   <option>#FFFFFF</option>
+	   <option>#000000</option>
+	   <option>#0000FF</option>
+	   <option>#FFFF00</option>
+	   <option>#FF0000</option>
+	   <option>#00FF00</option>
+	</datalist>
 	<nav>
 		<ul>
 			<li><a onclick="history.back();"><i class="material-icons">arrow_back</i></a></li>
@@ -29,6 +37,7 @@
 			<%}else{ %>
 				<li style="float: right; margin-right:20px;"><a href="index.jsp?seleccion=camiones&formato=modulo"><i class="material-icons">home</i></a></li>
 			<%} %>
+			<li style="float: right;"><a href="insertar.jsp?seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">add</i></a></li>
 		</ul>
 	</nav>
 	
@@ -44,7 +53,8 @@
 				}else{
 					Camion c = conn.getCamion(request.getParameter("numBastidor"));
 					c.setColor(request.getParameter("newColor"));
-					conn.modificarCamion(request.getParameter("numBastidor"), c);
+					conn.modificarCamion(c);
+					response.sendRedirect("info.jsp?numBastidor="+request.getParameter("numBastidor")+"&seleccion="+request.getParameter("seleccion"));
 				}
 				response.sendRedirect("info.jsp?numBastidor="+request.getParameter("numBastidor")+"&seleccion="+request.getParameter("seleccion"));
 			}
@@ -89,12 +99,12 @@
 							<th>Precio: </th><td><%=coche.getPrecio() %></td>
 						</tr>
 						<tr>
-							<td><a href="vender.jsp?numBastidor=<%=coche.getNumBastidor()%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
+							<td><a href="vender.jsp?numBastidor=<%=coche.getNumBastidor()%>&formato=<%=request.getParameter("formato")%>&seleccion=coches"><i class="material-icons vender">monetization_on</i></a></td>
 							<td><i class="material-icons" id="colorIcon">color_lens</i></td>
 						</tr>
 					</table>
 					<form action="info.jsp" method="post" class="colorOptions">
-						<input type="color" name="newColor">
+						<input type="color" name="newColor" list="presetColors">
 						<input type="hidden" name="numBastidor" value="<%=request.getParameter("numBastidor") %>">
 						<input type="hidden" name="seleccion" value="<%=request.getParameter("seleccion") %>">
 						<input type="submit" name="colorSubmit">
@@ -143,14 +153,16 @@
 							<th>Precio: </th><td><%=camion.getPrecio() %></td>
 						</tr>
 						<tr>
-							<td><a href="vender.jsp?numBastidor=<%=camion.getNumBastidor()%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
+							<td><a href="vender.jsp?numBastidor=<%=camion.getNumBastidor()%>&formato=<%=request.getParameter("formato")%>&seleccion=camiones"><i class="material-icons vender">monetization_on</i></a></td>
 							<td><i class="material-icons" id="colorIcon">color_lens</i></td>
 						</tr>
-						<tr class="colorOptions">
-							<td><input type="color" name="newColor"></td>
-							<td><input type="submit" name="colorSubmit"></td>
-						</tr>
 					</table>
+					<form action="info.jsp" method="post" class="colorOptions">
+						<input type="color" name="newColor" list="presetColors">
+						<input type="hidden" name="numBastidor" value="<%=request.getParameter("numBastidor") %>">
+						<input type="hidden" name="seleccion" value="<%=request.getParameter("seleccion") %>">
+						<input type="submit" name="colorSubmit">
+					</form>
 				</article>
 			</section>
 				

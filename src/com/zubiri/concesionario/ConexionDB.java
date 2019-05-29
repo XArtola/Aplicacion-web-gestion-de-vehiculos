@@ -65,7 +65,11 @@ public class ConexionDB {
 	 */
 
 	
-
+	/**
+	 * Devuelve una lista con todos los datos guardados en la tabla Vehiculos
+	 * @return ResultSet
+	 * @throws SQLException
+	 */
 	public ResultSet getVehiculos() throws SQLException {
 		cst = conn.prepareCall("call getVehiculos()");
 		return cst.executeQuery();
@@ -87,13 +91,25 @@ public class ConexionDB {
 	 * @return los datos existentes en cada linea
 	 * @throws SQLException
 	 */
-
 	public ResultSet getCamiones() throws SQLException {
 
 		cst = conn.prepareCall("call getCamiones()");  
 		return cst.executeQuery();
 
 
+	}
+	
+	/**
+	 * Devuelve una lista con todos vehiculos|coches|camiones con el color especificado
+	 * @param color el color por el que se quiere filtrar
+	 * @param tipo String coches|vehiculos|camiones
+	 * @return ResultSet
+	 * @throws SQLException
+	 */
+	public ResultSet filtrarColor(String color, String tipo) throws SQLException {
+		cst = conn.prepareCall("call filtrarColor('"+color+"','"+tipo+"');");
+		ResultSet rs = cst.executeQuery();
+		return rs;
 	}
 	
 	/**
@@ -161,12 +177,7 @@ public class ConexionDB {
 	 * @param Objeto coche con los datos
 	 * @throws SQLException
 	 */
-
 	public void insertarCoche(Coche coche) throws SQLException {
-
-		cst = conn.prepareCall("call insertarCoche('" + coche.getMatricula() + "','" + coche.getNumBastidor() + "','"
-				+ coche.getColor() + "'," + coche.getNumAsientos() + "," + coche.getPrecio() + ",'" + coche.getSerie().getNumSerie()
-				+ "',' 'disponible'," + coche.getNumPuertas() + "," + coche.getCapacidadMaletero() + ");");
 
 		cst = conn.prepareCall("call insertarCoche('" + coche.getMatricula().toUpperCase() + "','" + coche.getNumBastidor() + "','"
 				+ coche.getColor() + "'," + coche.getNumAsientos() + "," + coche.getPrecio() + "," + coche.getSerie().getNumSerie()
@@ -213,14 +224,14 @@ public class ConexionDB {
 	 * @throws SQLException
 	 */
 
-	public void modificarCamion(String numBastidor, Camion camion) throws SQLException {
+	public void modificarCamion(Camion camion) throws SQLException {
 		st.executeUpdate("update vehiculos set matricula='" + camion.getMatricula() + "', color='" + camion.getColor() 
-		+ "', numAsientos=" + camion.getNumAsientos()
-		+ ", precio=" + camion.getPrecio() 
-		+ ", numserie=" + camion.getSerie().getNumSerie() + 
-		"  where numBastidor='" + camion.getNumBastidor() + "';");
-		st.executeUpdate("update from camiones set carga="+ camion.getCarga()+ ", tipoMercancia='" 
-				+ camion.getTipoMercancia() + "' where numBastidor='" + numBastidor + "'");
+			+ "', numAsientos=" + camion.getNumAsientos()
+			+ ", precio=" + camion.getPrecio() 
+			+ ", numserie=" + camion.getSerie().getNumSerie() + 
+			"  where numBastidor='" + camion.getNumBastidor() + "';");
+		st.executeUpdate("update camiones set carga="+ camion.getCarga()+ ", tipoMercancia='" 
+				+ camion.getTipoMercancia() + "' where numBastidor='" + camion.getNumBastidor() + "'");
 	}
 	
 	/**

@@ -20,9 +20,6 @@
 	</header>
 	<nav>
 		<ul>
-			<li><a href="index.jsp?seleccion=vehiculos&formato=<%=request.getParameter("formato") %>">Todos los vehículos</a></li>
-			<li><a href="index.jsp?seleccion=coches&formato=<%=request.getParameter("formato") %>">Coches</a></li>
-			<li><a href="index.jsp?seleccion=camiones&formato=<%=request.getParameter("formato") %>">Camiones</a></li>
 			<li style="float: right; margin-right:20px;" id="more"><a><i class="material-icons">more_horiz</i></a></li>
 			<li style="float: right;"><a href="insertar.jsp?seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">add</i></a></li>
 			<%if(request.getParameter("formato").equals("lista")){ %>
@@ -31,9 +28,13 @@
 				<li style="float:right;"><a href="index.jsp?formato=lista&seleccion=<%=request.getParameter("seleccion") %>"><i class="material-icons">view_list</i></a></li>
 				<%
 			}%>
+			<li id="vehiculos"><a href="index.jsp?seleccion=vehiculos&formato=<%=request.getParameter("formato") %>">Todos los vehículos</a></li>
+			<li id="coches"><a href="index.jsp?seleccion=coches&formato=<%=request.getParameter("formato") %>">Coches</a></li>
+			<li id="camiones"><a href="index.jsp?seleccion=camiones&formato=<%=request.getParameter("formato") %>">Camiones</a></li>
+			
 		</ul>
 		<form class="colorPicker">
-			<input type="color" list="presetColors">
+			<input type="color" list="presetColors" name="filtroColor">
 			<datalist id="presetColors">
 			   <option>#FFFFFF</option>
 			   <option>#000000</option>
@@ -42,7 +43,9 @@
 			   <option>#FF0000</option>
 			   <option>#00FF00</option>
 			</datalist>
-			<input type="submit" value="Filtrar por color">
+			<input type="hidden" name="formato" value="<%=request.getParameter("formato")%>">
+			<input type="hidden" name="seleccion" value="<%=request.getParameter("seleccion") %>">
+			<input type="submit" value="Filtrar por color" name="colorSubmit">
 		</form>
 	</nav>
 	<%
@@ -54,7 +57,11 @@
 			if(request.getParameter("formato").equals("lista")){
 			switch (request.getParameter("seleccion")) {
 			case "camiones":
-				rs = conn.getCamiones();
+				if(request.getParameter("colorSubmit")!= null){
+					rs = conn.filtrarColor(request.getParameter("filtroColor"), "camiones");
+				}else{
+					rs = conn.getCamiones();
+				}
 	%>
 	<section>
 	<article>
@@ -83,7 +90,7 @@
 				<td><%=rs.getInt("numSerie")%>
 				<td><%=rs.getFloat("carga")%></td>
 				<td><%=rs.getString("tipoMercancia").charAt(0) %></td>
-				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
+				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=camiones"><i class="material-icons vender">monetization_on</i></a></td>
 			</tr>
 			<%
 				}
@@ -94,7 +101,11 @@
 		<%
 			break;
 				case "coches":
-					rs = conn.getCoches();
+					if(request.getParameter("colorSubmit")!= null){
+						rs = conn.filtrarColor(request.getParameter("filtroColor"), "coches");
+					}else{
+						rs = conn.getCoches();
+					}
 		%>
 		<section>
 		<article>
@@ -123,7 +134,7 @@
 				<td><%=rs.getInt("numSerie")%>
 				<td><%=rs.getInt("numPuertas")%></td>
 				<td><%=rs.getFloat("capacidadMaletero")%></td>
-				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a></td>
+				<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons vender">monetization_on</i></a></td>
 			</tr>
 			<%
 				}
@@ -134,7 +145,11 @@
 		<%
 			break;
 				case "vehiculos":
-					rs = conn.getVehiculos();
+					if(request.getParameter("colorSubmit")!= null){
+						rs = conn.filtrarColor(request.getParameter("filtroColor"), "vehiculos");
+					}else{
+						rs = conn.getVehiculos();
+					}
 					%>
 					<section>
 					<article class="max-content">
@@ -162,12 +177,13 @@
 							<td><%=rs.getInt("numSerie")%></td>
 							<td colspan=2 class="tipo">
 								<%if(rs.getString("tipo").equals("coche")){ %>
-									<i class="material-icons">directions_car</i>
+									<i class="material-icons">directions_car</i></td>
+									<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=coches"><i class="material-icons vender">monetization_on</i></a></td>
 								<%}else if(rs.getString("tipo").equals("camion")){ %>
-									<i class="material-icons">local_shipping</i>
+									<i class="material-icons">local_shipping</i></td>
+									<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=camiones"><i class="material-icons vender">monetization_on</i></a></td>
 								<%} %>
-							</td>
-							<td><a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></td></a>
+							
 						</tr>
 						<%
 							}
@@ -179,9 +195,14 @@
 			break;
 				}
 			}else{
+				%> <div id="module-container"> <%
 				switch(request.getParameter("seleccion")){
 				case "coches":
-					rs = conn.getCoches();
+					if(request.getParameter("colorSubmit")!= null){
+						rs = conn.filtrarColor(request.getParameter("filtroColor"), "coches");
+					}else{
+						rs = conn.getCoches();
+					}
 					boolean repetir = true;
 					%>
 						<%
@@ -198,7 +219,7 @@
 										</table>
 										<div class="tipo">
 											<i class="material-icons">directions_car</i>
-											<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a>
+											<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons vender">monetization_on</i></a>
 										</div>
 									</div>
 								</div>
@@ -213,7 +234,11 @@
 					<%
 					break;
 				case "camiones":
-					rs = conn.getCamiones();
+					if(request.getParameter("colorSubmit")!= null){
+						rs = conn.filtrarColor(request.getParameter("filtroColor"), "camiones");
+					}else{
+						rs = conn.getCamiones();
+					}
 					repetir = true;
 					while(repetir){
 						if(rs.next()){%>
@@ -228,7 +253,7 @@
 									</table>
 									<div class="tipo">
 										<i class="material-icons">local_shipping</i>
-										<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a>
+										<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons vender">monetization_on</i></a>
 									</div>
 								</div>
 							</div>
@@ -240,7 +265,11 @@
 					}
 					break;
 				case "vehiculos":
-					rs = conn.getVehiculos();
+					if(request.getParameter("colorSubmit")!= null){
+						rs = conn.filtrarColor(request.getParameter("filtroColor"), "vehiculos");
+					}else{
+						rs = conn.getVehiculos();
+					}
 					repetir = true;
 					while(repetir){
 						if(rs.next()){%>
@@ -256,10 +285,11 @@
 								<div class="tipo">
 									<%if(rs.getString("tipo").equals("coche")){ %>
 										<i class="material-icons">directions_car</i>
+										<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=coches"><i class="material-icons vender">monetization_on</i></a>
 									<%}else if(rs.getString("tipo").equals("camion")){ %>
 										<i class="material-icons">local_shipping</i>
+										<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=camiones"><i class="material-icons vender">monetization_on</i></a>
 									<%} %>
-									<a href="vender.jsp?numBastidor=<%=rs.getString("numBastidor")%>&formato=<%=request.getParameter("formato")%>&seleccion=<%=request.getParameter("seleccion")%>"><i class="material-icons">monetization_on</i></a>
 								</div>
 							</div>
 						</div>
@@ -270,6 +300,7 @@
 						} 
 					break;
 				}
+				%> </div> <%
 			}
 				conn.close();
 			} catch (ClassNotFoundException e) {

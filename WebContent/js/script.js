@@ -15,4 +15,23 @@ $(document).ready(function() {
 			expanded =false;
 		}
 	});
+	switch(getUrlVars()["seleccion"]){
+		case "vehiculos":
+			$('#vehiculos').addClass('seleccionado');
+			break;
+		case "coches":
+			$('#coches').addClass('seleccionado');
+			break;
+		case "camiones":
+			$('#camiones').addClass('seleccionado');
+			break;
+	}
 });
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}

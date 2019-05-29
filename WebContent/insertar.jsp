@@ -57,7 +57,7 @@
 					coche.setEstado("disponible");
 					coche.setTipo("coche");
 					coche.setNumPuertas(Integer.parseInt(request.getParameter("campo_numPuertas")));
-					coche.setCapacidadMaletero(Integer.parseInt(request.getParameter("campo_capacidadMaletero")));
+					coche.setCapacidadMaletero(Float.parseFloat(request.getParameter("campo_capacidadMaletero")));
 					//inserción en la base de datos
 					con.insertarCoche(coche);%>
 					<h1>Insertado correctamente</h1>
@@ -137,7 +137,7 @@
 								</tr>
 								<tr>
 									<td>Capacidad maletero</td>
-									<td><input type="number" step="0.5" readonly="readonly"
+									<td><input type="number" step="any" readonly="readonly"
 										name="campo_capacidadMaletero"
 										value="<%=request.getParameter("campo_capacidadMaletero")%>"></td>
 								</tr>
