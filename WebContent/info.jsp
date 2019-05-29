@@ -19,7 +19,7 @@
 <body>
 
 	<header>
-		<h1>MariCARmen <sup>&copy</sup></h1>
+		<img src="./img/logo.png">
 	</header>
 	<datalist id="presetColors">
 	   <option>#FFFFFF</option>
