@@ -26,6 +26,9 @@ $(document).ready(function() {
 			$('#camiones').addClass('seleccionado');
 			break;
 	}
+	$('header').click(function(){
+		window.location = "index.jsp?seleccion=vehiculos&formato=modulo";
+	});
 });
 
 function getUrlVars() {

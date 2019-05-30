@@ -13,10 +13,6 @@ a, i{
 	text-decoration: none !important;
 	user-select:none !important;
 }
-header h1{
-	font-family: Cinzel;
-	font-size: 24px;
-}
 header img{
 	height:150px;
 	box-shadow: 1px 1px 7px solid gray;
@@ -28,6 +24,7 @@ header{
 	width:100vw;
 	padding: 8vh 0;
 	background-color:white;
+	cursor:pointer;
 }
 header h1{
 	font-size: 36px;
@@ -175,7 +172,8 @@ input:valid{
 	width: 25px;
 	position: absolute;
 	border-radius: 10px 0 0 10px;
-	left: -2px;;
+	left: -2px;
+	z-index:-1;
 	top: 0;
 }
 .column{
