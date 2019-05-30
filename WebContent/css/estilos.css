@@ -160,6 +160,7 @@ input:valid{
 	border:3px solid black;
 	border-radius: 13px;
 	font-family: matricula;
+	z-index:1;
 	font-size:24px;
 	width: max-content;
 	letter-spacing:2px;
@@ -230,6 +231,7 @@ input:valid{
 	right:20px;
 	width: 200px;
 	background-color:white;
+	z-index:1000;
 	box-shadow:1px 1px 7px gray;
 	padding: 15px 10px;
 }

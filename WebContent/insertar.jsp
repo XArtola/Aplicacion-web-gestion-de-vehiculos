@@ -183,29 +183,29 @@
 				<table>
 					<tr>
 						<td>Matrícula</td>
-						<td><input type="text" name="campo_matricula" pattern="[0-9]{4}[A-Za-z]{3}" required></td>
+						<td><input type="text" name="campo_matricula" pattern="[0-9]{4}[A-Za-z]{3}" placeholder="6789ASD" required></td>
 					</tr>
 					<tr>
 						<td>Número de bastidor</td>
-						<td><input type="text" maxlength=17 minlenght= 17 name="campo_numBastidor" pattern="[0-9a-zA-Z]{17}" required></td>
+						<td><input type="text" maxlength=17 minlenght= 17 name="campo_numBastidor" pattern="[0-9a-zA-Z]{17}" placeholder="(17 caracteres)" required></td>
 					</tr>
 					<tr>
 						<td>Color</td>
-						<td><input type="color" name="campo_color" list="presetColors" required></td>
+						<td><input type="color" name="campo_color" list="presetColors" placeholder="#0000ff" required></td>
 					</tr>
 					<tr>
 						<td>Número de asientos</td>
-						<td><input type="number" name="campo_numAsientos" pattern="[2-9]" required></td>
+						<td><input type="number" name="campo_numAsientos" pattern="[2-9]" pattern="3" placeholder="2-9" required></td>
 					</tr>
 		
 					<tr>
 						<td>Precio</td>
-						<td><input type="number" step="0.5"  name="campo_precio" required></td>
+						<td><input type="number" step="0.5"  name="campo_precio"  placeholder="Max 999999.5" required></td>
 					</tr>
 		
 					<tr>
 						<td>Serie</td>
-						<td><input type="number" name="campo_serie" pattern="[0-9]{3,4}" required></td>
+						<td><input type="number" name="campo_serie" pattern="[0-9]{3,4}" placeholder="100-110" required></td>
 					</tr>
 					<%
 					switch (request.getParameter("seleccion")) {
@@ -213,11 +213,11 @@
 							%>
 							<tr>
 								<td>Número de puertas</td>
-								<td><input type="number" name="campo_numPuertas" pattern="[2-5]" required></td>
+								<td><input type="number" name="campo_numPuertas" pattern="[2-5]" placeholder="2-5" required></td>
 							</tr>
 							<tr>
 								<td>Capacidad maletero</td>
-								<td><input type="number" step="any" name="campo_capacidadMaletero" required></td>
+								<td><input type="number" step="any" name="campo_capacidadMaletero" placeholder="10-99" required></td>
 								
 							</tr>
 							<%
@@ -226,7 +226,7 @@
 							%>
 							<tr>
 								<td>Carga</td>
-								<td><input type="number" step="0.5" name="campo_carga" required></td>
+								<td><input type="number" step="0.5" name="campo_carga" placeholder="1000.00-9999.5" required></td>
 							</tr>
 							<tr>
 								<td>Tipo de mercancía</td>
